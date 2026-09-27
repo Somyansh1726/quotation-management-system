@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Retrieval</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='databasestyle.css') }}">
+</head>
+<body>
+  <div class="page-container">
+    <div class="card">
+      <h1>Data Retrieval</h1>
+      <p>Select a date range below to retrieve company data of that particular time period.</p>
+
+      <div class="range-row">
+        <div>
+          <label for="fromDate">From</label>
+          <input type="date" id="fromDate" name="fromDate">
+        </div>
+        <div>
+          <label for="toDate">To</label>
+          <input type="date" id="toDate" name="toDate">
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="button-secondary" id="clearBtn">Clear</button>
+        <button type="button" class="button-primary" id="retrieveBtn">Retrieve Data</button>
+      </div>
+
+      <div id="resultBox" class="result-box" hidden>
+        <strong>Selected Range:</strong>
+        <div id="resultText">No data selected yet.</div>
+        <div id="resultTableWrapper" style="overflow-x:auto; margin-top:12px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fromDate = document.getElementById('fromDate');
+    const toDate = document.getElementById('toDate');
+    const retrieveBtn = document.getElementById('retrieveBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resultBox = document.getElementById('resultBox');
+    const resultText = document.getElementById('resultText');
+    const resultTableWrapper = document.getElementById('resultTableWrapper');
+
+    function showResult(message) {
+      resultText.textContent = message;
+      resultBox.hidden = false;
+    }
+
+    // Renders the retrieved rows as an HTML table
+    function renderTable(rows) {
+      resultTableWrapper.innerHTML = '';
+
+      if (!rows || rows.length === 0) {
+        resultTableWrapper.innerHTML = '<p>No records found for this date range.</p>';
+        return;
+      }
+
+      const table = document.createElement('table');
+      table.style.width = '100%';
+      table.style.borderCollapse = 'collapse';
+
+      // Header row (columns built from the object's keys, plus one
+      // extra column at the end for the "View Bill" link)
+      const headerRow = document.createElement('tr');
+      Object.keys(rows[0]).forEach((key) => {
+        const th = document.createElement('th');
+        th.textContent = key;
+        th.style.border = '1px solid #d1d5db';
+        th.style.padding = '8px';
+        th.style.background = '#f3f4f6';
+        th.style.textAlign = 'left';
+        headerRow.appendChild(th);
+      });
+      const viewTh = document.createElement('th');
+      viewTh.textContent = 'Bill';
+      viewTh.style.border = '1px solid #d1d5db';
+      viewTh.style.padding = '8px';
+      viewTh.style.background = '#f3f4f6';
+      headerRow.appendChild(viewTh);
+      table.appendChild(headerRow);
+
+      // Data rows for each record
+      rows.forEach((row) => {
+        const tr = document.createElement('tr');
+        Object.values(row).forEach((value) => {
+          const td = document.createElement('td');
+          td.textContent = value ?? '';
+          td.style.border = '1px solid #e5e7eb';
+          td.style.padding = '8px';
+          tr.appendChild(td);
+        });
+
+        // Extra cell: link to the full bill preview for this quotation
+        const viewTd = document.createElement('td');
+        viewTd.style.border = '1px solid #e5e7eb';
+        viewTd.style.padding = '8px';
+        const link = document.createElement('a');
+        link.href = `/quotation/${row.id}`;
+        link.textContent = 'View';
+        link.target = '_blank';
+        viewTd.appendChild(link);
+        tr.appendChild(viewTd);
+
+        table.appendChild(tr);
+      });
+
+      resultTableWrapper.appendChild(table);
+    }
+
+    retrieveBtn.addEventListener('click', async () => {
+      const fromValue = fromDate.value;
+      const toValue = toDate.value;
+
+      if (!fromValue || !toValue) {
+        showResult('Please choose both start and end dates.');
+        return;
+      }
+
+      if (fromValue > toValue) {
+        showResult('The "From" date must be before or equal to the "To" date.');
+        return;
+      }
+
+      showResult(`Retrieving records from ${fromValue} to ${toValue}...`);
+
+      try {
+        // Send the selected dates to Flask's "/retrieve-data" route
+        const formData = new FormData();
+        formData.append('fromDate', fromValue);
+        formData.append('toDate', toValue);
+
+        const response = await fetch('/retrieve-data', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        showResult(`Records from ${fromValue} to ${toValue} (${data.length} found):`);
+        renderTable(data);
+      } catch (error) {
+        showResult('Something went wrong while fetching data.');
+        console.error(error);
+      }
+    });
+
+    clearBtn.addEventListener('click', () => {
+      fromDate.value = '';
+      toDate.value = '';
+      resultBox.hidden = true;
+      resultTableWrapper.innerHTML = '';
+    });
+  </script>
+</body>
+</html>

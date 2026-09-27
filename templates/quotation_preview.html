@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quotation {{ quotation.quotationNumber }}</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #eef1f5;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1f2937;
+    line-height: 1.45;
+  }
+
+  .toolbar {
+    background: #ffffff;
+    border-bottom: 1px solid #d9dee5;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .toolbar-brand {
+    font-weight: 700;
+    font-size: 14px;
+    color: #374151;
+    letter-spacing: 0.02em;
+  }
+
+  .btn {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 9px 15px;
+    border-radius: 7px;
+    border: 1px solid #d5dbe2;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 6px;
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+      transform 0.1s ease;
+  }
+
+  .btn:hover {
+    background: #f7f9fb;
+    border-color: #b9c2cc;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-ghost {
+    background: #fff;
+    color: #263238;
+  }
+
+  .btn-primary {
+    background: #14213d;
+    color: #fff;
+    border-color: #14213d;
+  }
+
+  .btn-primary:hover {
+    background: #0f1a31;
+    border-color: #0f1a31;
+  }
+
+  .sheet {
+    max-width: 860px;
+    margin: 26px auto 56px;
+    background: #ffffff;
+    border: 1px solid #dfe4ea;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+  }
+
+  /* -----------------------------
+     HEADER
+  ------------------------------ */
+
+  .q-banner {
+    background: #14213d;
+    color: #ffffff;
+    padding: 25px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .banner-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+  }
+
+  .banner-logo-box {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    height: 48px;
+    padding: 5px;
+    overflow: hidden;
+  }
+
+  .banner-logo-box img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: 125px;
+    object-fit: contain;
+  }
+
+  .banner-company-name {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+  }
+
+  .banner-title {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .banner-title h1 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+  }
+
+  .banner-title p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    opacity: 0.82;
+  }
+
+  /* -----------------------------
+     COMPANY DETAILS
+  ------------------------------ */
+
+  .company-info {
+    padding: 20px 38px 0;
+  }
+
+  .company-info h2 {
+    margin: 0 0 5px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .company-info p {
+    margin: 2px 0;
+    font-size: 11.5px;
+    color: #5b6470;
+  }
+
+  .company-info .gstin {
+    margin-top: 5px;
+    font-weight: 700;
+    color: #27313c;
+  }
+
+  /* -----------------------------
+     META STRIP
+  ------------------------------ */
+
+  .meta-strip {
+    margin: 18px 38px 0;
+    background: #f7f8fa;
+    border: 1px solid #e0e5ea;
+    border-radius: 8px;
+    padding: 11px 14px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    font-size: 11.5px;
+  }
+
+  .meta-strip > div {
+    padding-right: 10px;
+    border-right: 1px solid #e0e5ea;
+  }
+
+  .meta-strip > div:last-child {
+    border-right: none;
+  }
+
+  .meta-strip span.label {
+    color: #7b8490;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 9px;
+    margin-right: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  .meta-strip span.value {
+    color: #202833;
+    font-weight: 700;
+  }
+
+  /* -----------------------------
+     CUSTOMER INFORMATION
+  ------------------------------ */
+
+  .q-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 24px 38px 0;
+  }
+
+  .info-block {
+    border: 1px solid #e1e5e9;
+    border-radius: 9px;
+    padding: 15px 16px;
+    background: #ffffff;
+  }
+
+  .info-block h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #14213d;
+    margin: 0 0 9px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #dbe1e7;
+    font-weight: 700;
+  }
+
+  .info-block p {
+    margin: 3px 0;
+    font-size: 11.5px;
+    color: #4b5563;
+  }
+
+  .info-block .name {
+    font-weight: 700;
+    font-size: 13px;
+    color: #111827;
+    margin-bottom: 5px;
+  }
+
+  .info-block .sub-heading {
+    margin-top: 14px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+  }
+
+  /* -----------------------------
+     ITEMS TABLE
+  ------------------------------ */
+
+  .q-items {
+    padding: 24px 38px 0;
+  }
+
+  .items-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 11.5px;
+    border: 1px solid #dfe4e9;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .items-table thead th {
+    background: #14213d;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    padding: 11px 10px;
+    text-align: left;
+    border: none;
+  }
+
+  .items-table tbody tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+
+  .items-table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid #e8ebef;
+    vertical-align: top;
+  }
+
+  .items-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .col-num {
+    text-align: center;
+    width: 38px;
+  }
+
+  .col-amount {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .item-name {
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 2px;
+  }
+
+  .item-specs {
+    color: #68717d;
+    font-size: 10.5px;
+    margin: 0;
+  }
+
+  .item-sku {
+    color: #5f6b78;
+    font-size: 10px;
+    margin-top: 3px;
+  }
+
+  /* -----------------------------
+     TOTALS
+  ------------------------------ */
+
+  .q-totals-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px 38px 0;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .amount-words {
+    flex: 1 1 300px;
+    min-width: 0;
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #68717d;
+    max-width: 360px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .totals-block {
+    flex: 0 1 270px;
+    min-width: 240px;
+    max-width: 100%;
+    border-top: 1px solid #dfe4e9;
+    padding-top: 6px;
+  }
+
+  .totals-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11.5px;
+    padding: 6px 0;
+    color: #3f4a56;
+  }
+
+  .totals-line span:last-child {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: right;
+    font-weight: 600;
+  }
+
+  .totals-line + .totals-line {
+    border-top: 1px solid #edf0f3;
+  }
+
+  .totals-grand {
+    margin-top: 9px;
+    padding: 12px 14px;
+    border-radius: 7px;
+    background: #14213d;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .totals-grand span:last-child {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    text-align: right;
+  }
+
+  /* -----------------------------
+     TERMS / WARRANTY
+  ------------------------------ */
+
+  .q-terms {
+    padding: 23px 38px 0;
+  }
+
+  .q-terms h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #14213d;
+    margin: 0 0 9px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #dbe1e7;
+    display: inline-block;
+    font-weight: 700;
+  }
+
+  .q-terms ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .q-terms li {
+    font-size: 11px;
+    color: #4b5563;
+    margin: 4px 0;
+  }
+
+  .warranty-line {
+    font-size: 11px;
+    color: #374151;
+    margin: 0 0 8px;
+  }
+
+  .warranty-line strong {
+    color: #14213d;
+  }
+
+  /* -----------------------------
+     PAYMENT INFORMATION
+  ------------------------------ */
+
+  .q-payment {
+    margin: 23px 38px 0;
+    padding: 15px 17px;
+    background: #f7f8fa;
+    border: 1px solid #e0e5ea;
+    border-radius: 8px;
+  }
+
+  .q-payment h3 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #14213d;
+    margin: 0 0 7px;
+    font-weight: 700;
+  }
+
+  .q-payment p {
+    margin: 2px 0;
+    font-size: 11px;
+    color: #4b5563;
+  }
+
+  /* -----------------------------
+     FOOTER
+  ------------------------------ */
+
+  .q-footer {
+    margin-top: 24px;
+    padding: 15px 38px 28px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+  }
+
+  .q-footer p {
+    margin: 2px 0;
+    font-size: 9.5px;
+    color: #9aa3ad;
+  }
+
+  /* -----------------------------
+     EXPIRY POPUP
+  ------------------------------ */
+
+  .expiry-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17, 24, 39, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+  }
+
+  .expiry-popup {
+    width: 100%;
+    max-width: 440px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .expiry-popup.warning {
+    border-top: 6px solid #f59e0b;
+  }
+
+  .expiry-popup.today {
+    border-top: 6px solid #dc2626;
+  }
+
+  .expiry-popup.expired {
+    border-top: 6px solid #7f1d1d;
+  }
+
+  .expiry-icon {
+    font-size: 40px;
+    margin-bottom: 9px;
+  }
+
+  .expiry-popup h2 {
+    margin: 0 0 9px;
+    font-size: 21px;
+    color: #14213d;
+  }
+
+  .expiry-popup.warning h2 {
+    color: #b45309;
+  }
+
+  .expiry-popup.today h2,
+  .expiry-popup.expired h2 {
+    color: #b91c1c;
+  }
+
+  .expiry-popup p {
+    margin: 7px 0;
+    color: #4b5563;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .expiry-close {
+    margin-top: 17px;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 24px;
+    background: #14213d;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .expiry-close:hover {
+    background: #0f1a31;
+  }
+
+  /* -----------------------------
+     RESPONSIVE
+  ------------------------------ */
+
+  @media (max-width: 720px) {
+    .toolbar {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .toolbar > div {
+      width: 100%;
+    }
+
+    .toolbar .btn {
+      margin: 4px 4px 0 0;
+    }
+
+    .q-banner {
+      padding: 22px 22px;
+    }
+
+    .company-info,
+    .q-info-grid,
+    .q-items,
+    .q-totals-row,
+    .q-terms {
+      padding-left: 22px;
+      padding-right: 22px;
+    }
+
+    .meta-strip {
+      margin-left: 22px;
+      margin-right: 22px;
+      grid-template-columns: 1fr;
+    }
+
+    .meta-strip > div {
+      border-right: none;
+      border-bottom: 1px solid #e0e5ea;
+      padding-bottom: 7px;
+    }
+
+    .meta-strip > div:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .q-info-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .q-payment {
+      margin-left: 22px;
+      margin-right: 22px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    body {
+      background: #ffffff;
+    }
+
+    .sheet {
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .q-banner {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .banner-title {
+      text-align: left;
+    }
+
+    .items-table {
+      font-size: 10px;
+    }
+
+    .items-table thead th,
+    .items-table td {
+      padding: 8px 6px;
+    }
+
+    .q-totals-row {
+      flex-direction: column;
+    }
+
+    .amount-words,
+    .totals-block {
+      width: 100%;
+      max-width: none;
+    }
+  }
+
+  /* -----------------------------
+     PRINT / PDF
+  ------------------------------ */
+
+  @media print {
+    .toolbar,
+    .expiry-overlay {
+      display: none !important;
+    }
+
+    body {
+      background: #fff;
+    }
+
+    .sheet {
+      max-width: none;
+      margin: 0;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .q-banner {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .items-table thead th,
+    .totals-grand,
+    .q-banner {
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     EXPIRY WARNING POPUP
+     JavaScript below decides whether this is displayed.
+========================================================= -->
+
+<div
+  class="expiry-overlay"
+  id="expiryOverlay"
+  style="display: none;"
+>
+  <div
+    class="expiry-popup"
+    id="expiryPopup"
+  >
+
+    <div
+      class="expiry-icon"
+      id="expiryIcon">
+      ⚠️
+    </div>
+
+    <h2 id="expiryTitle">
+      Quotation Expiry Warning
+    </h2>
+
+    <p id="expiryMessage"></p>
+
+    <p id="expiryDateText"></p>
+
+    <p id="expiryAdvice"></p>
+
+    <button
+      type="button"
+      class="expiry-close"
+      onclick="closeExpiryPopup()"
+    >
+      Close
+    </button>
+
+  </div>
+</div>
+
+
+<!-- =========================================================
+     TOOLBAR
+========================================================= -->
+
+<div class="toolbar">
+
+  <span class="toolbar-brand">
+    Quotation Preview
+  </span>
+
+  <div>
+
+    <a
+      class="btn btn-ghost"
+      href="{{ url_for('quotation_form') }}"
+    >
+      + New Quotation
+    </a>
+
+    <a
+      class="btn btn-ghost"
+      href="{{ url_for('revise_quotation', quotation_id=quotation.id) }}"
+    >
+      Revise Quotation
+    </a>
+
+    <button
+      class="btn btn-ghost"
+      onclick="window.print()"
+    >
+      Print
+    </button>
+
+    <a
+      class="btn btn-primary"
+      href="{{ url_for('quotation_pdf', quotation_id=quotation.id) }}"
+    >
+      Download PDF
+    </a>
+
+  </div>
+
+</div>
+
+
+<main class="sheet">
+
+  <!-- =========================================================
+       NAVY BANNER
+  ========================================================= -->
+
+  <div class="q-banner">
+
+    <div class="banner-brand">
+
+      <div class="banner-logo-box">
+
+        {% if company.logo_path %}
+
+        <img
+          src="/static/{{ company.logo_path }}"
+          alt="Logo"
+        >
+
+        {% else %}
+
+        <span
+          style="
+            color:#ffffff;
+            font-weight:700;
+            font-size:22px;
+            letter-spacing:0.02em;
+          "
+        >
+          {{ company.company_name or "Company" }}
+        </span>
+
+        {% endif %}
+
+      </div>
+
+
+      {% if company.logo_path %}
+
+      <span class="banner-company-name">
+        {{ company.company_name or "Company" }}
+      </span>
+
+      {% endif %}
+
+    </div>
+
+
+    <div class="banner-title">
+
+      <h1>
+        QUOTATION
+      </h1>
+
+      <p>
+        #{{ quotation.quotationNumber }}
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       COMPANY DETAILS
+  ========================================================= -->
+
+  <div class="company-info">
+
+    <h2>
+      {{ company.company_name or "-" }}
+    </h2>
+
+    <p>
+      {{ company.branch_address or "" }}
+    </p>
+
+    <p>
+      {{ company.mobile_number or "" }}
+      &nbsp;&#8226;&nbsp;
+      {{ company.email or "" }}
+    </p>
+
+    <p class="gstin">
+      GSTIN: {{ company.gst_number or "-" }}
+    </p>
+
+  </div>
+
+
+  <!-- =========================================================
+       DATE / VALID UNTIL / PAYMENT
+       The expiry date is stored in a data attribute so
+       JavaScript can compare it with today's date.
+  ========================================================= -->
+
+  <div
+    class="meta-strip"
+    id="quotationMeta"
+    data-expiry="{{ quotation.quotationExpiry or '' }}"
+  >
+
+    <div>
+      <span class="label">
+        Date:
+      </span>
+
+      <span class="value">
+        {{ quotation.quotationDate or "-" }}
+      </span>
+    </div>
+
+
+    <div>
+      <span class="label">
+        Valid Until:
+      </span>
+
+      <span class="value">
+        {{ quotation.quotationExpiry or "-" }}
+      </span>
+    </div>
+
+
+    <div>
+      <span class="label">
+        Payment:
+      </span>
+
+      <span class="value">
+        {{ quotation.paymentTerms or quotation.paymentMethod or "-" }}
+      </span>
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       BILLING + SHIPPING
+  ========================================================= -->
+
+  <div class="q-info-grid">
+
+    <div class="info-block">
+
+      <h3>
+        Billing Details
+      </h3>
+
+      <p class="name">
+        {{ quotation.companyName or "-" }}
+      </p>
+
+      <p>
+        {{ quotation.billingAddress or "-" }}
+      </p>
+
+      <p>
+        {{ quotation.statesCustomer or "-" }}
+      </p>
+
+      <p>
+        GST: {{ quotation.customerGst or "-" }}
+      </p>
+
+      <p>
+        Contact No: {{ quotation.phoneNo or "-" }}
+      </p>
+
+    </div>
+
+
+    <div class="info-block">
+
+      <h3>
+        Shipping Details
+      </h3>
+
+      <p class="name">
+        {{ quotation.companyName or "-" }}
+      </p>
+
+      <p>
+        {{ quotation.shippingAddress or quotation.billingAddress or "-" }}
+      </p>
+
+      <p>
+        {{ quotation.statesCustomer or "-" }}
+      </p>
+
+      <p>
+        Contact No: {{ quotation.phoneNo or "-" }}
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       ITEMS
+  ========================================================= -->
+
+  <div class="q-items">
+
+    <table class="items-table">
+
+      <thead>
+
+        <tr>
+
+          <th class="col-num">
+            #
+          </th>
+
+          <th>
+            Description
+          </th>
+
+          <th class="col-num">
+            Qty
+          </th>
+
+          <th class="col-amount">
+            Unit Rate
+          </th>
+
+          <th class="col-amount">
+            Amount
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        {% for item in items %}
+
+        <tr>
+
+          <td class="col-num">
+            {{ loop.index }}
+          </td>
+
+          <td>
+
+            <p class="item-name">
+              {{ item.itemName }}
+            </p>
+
+            {% if item.specifications %}
+
+            <p class="item-specs">
+              {{ item.specifications }}
+            </p>
+
+            {% endif %}
+
+
+            {% if item.modelNo %}
+
+            <p class="item-sku">
+              Model: {{ item.modelNo }}
+            </p>
+
+            {% endif %}
+
+          </td>
+
+
+          <td class="col-num">
+            {{ item.itemQuantity }}
+          </td>
+
+
+          <td class="col-amount">
+            &#8377;{{ "{:,.2f}".format(item.unitPrice|float) }}
+          </td>
+
+
+          <td class="col-amount">
+            &#8377;{{ "{:,.2f}".format(item.lineTotal|float) }}
+          </td>
+
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <!-- =========================================================
+       TOTALS
+  ========================================================= -->
+
+  <div class="q-totals-row">
+
+    <p class="amount-words">
+      Amount in words:
+      {{ amount_in_words }}
+    </p>
+
+
+    <div class="totals-block">
+
+      <div class="totals-line">
+
+        <span>
+          Subtotal
+        </span>
+
+        <span>
+          &#8377;{{ "{:,.2f}".format(subtotal) }}
+        </span>
+
+      </div>
+
+
+      {% if tax.type == "cgst_sgst" %}
+
+      <div class="totals-line">
+
+        <span>
+          CGST ({{ tax.cgst_percent }}%)
+        </span>
+
+        <span>
+          &#8377;{{ "{:,.2f}".format(tax.cgst_amount) }}
+        </span>
+
+      </div>
+
+
+      <div class="totals-line">
+
+        <span>
+          SGST ({{ tax.sgst_percent }}%)
+        </span>
+
+        <span>
+          &#8377;{{ "{:,.2f}".format(tax.sgst_amount) }}
+        </span>
+
+      </div>
+
+      {% else %}
+
+      <div class="totals-line">
+
+        <span>
+          IGST ({{ tax.igst_percent }}%)
+        </span>
+
+        <span>
+          &#8377;{{ "{:,.2f}".format(tax.igst_amount) }}
+        </span>
+
+      </div>
+
+      {% endif %}
+
+
+      <div class="totals-grand">
+
+        <span>
+          Grand Total
+        </span>
+
+        <span>
+          &#8377;{{ "{:,.2f}".format(grand_total) }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       TERMS & CONDITIONS
+  ========================================================= -->
+
+  {% if terms_list or quotation.warrantyTerm %}
+
+  <div class="q-terms">
+
+    <h3>
+      Terms &amp; Conditions
+    </h3>
+
+
+    {% if quotation.warrantyTerm %}
+
+    <p class="warranty-line">
+
+      <strong>
+        Warranty:
+      </strong>
+
+      {{ quotation.warrantyTerm }}
+
+    </p>
+
+    {% endif %}
+
+
+    {% if terms_list %}
+
+    <ul>
+
+      {% for term in terms_list %}
+
+      <li>
+        {{ term }}
+      </li>
+
+      {% endfor %}
+
+    </ul>
+
+    {% endif %}
+
+  </div>
+
+  {% endif %}
+
+
+  <!-- =========================================================
+       ATTACHMENTS
+  ========================================================= -->
+
+  {% if quotation.uploadedFiles %}
+
+  <div class="q-terms">
+
+    <h3>
+      Attachments
+    </h3>
+
+    <ul>
+
+      {% for file_name in quotation.uploadedFiles.split(", ") %}
+
+      <li>
+
+        <a
+          href="{{ url_for('uploaded_file', filename=file_name) }}"
+          target="_blank"
+        >
+          {{ file_name }}
+        </a>
+
+      </li>
+
+      {% endfor %}
+
+    </ul>
+
+  </div>
+
+  {% endif %}
+
+
+  <!-- =========================================================
+       PAYMENT INFORMATION
+  ========================================================= -->
+
+  <div class="q-payment">
+
+    <h3>
+      Payment Information
+    </h3>
+
+    <p>
+      Bank: {{ company.account_name or "-" }}
+    </p>
+
+    <p>
+      A/C: {{ company.account_number or "-" }}
+    </p>
+
+    {% if company.upi_id %}
+
+    <p>
+      UPI ID: {{ company.upi_id }}
+    </p>
+
+    {% endif %}
+
+  </div>
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+
+  <div class="q-footer">
+
+    <p>
+      This is a computer-generated document and does not require
+      a physical signature.
+    </p>
+
+  </div>
+
+</main>
+
+
+<!-- =========================================================
+     EXPIRY WARNING JAVASCRIPT
+========================================================= -->
+
+<script>
+
+  /*
+   * Converts a YYYY-MM-DD string into a local-date object.
+   *
+   * We intentionally do NOT use:
+   * new Date("YYYY-MM-DD")
+   *
+   * because that can interpret the date as UTC and cause
+   * off-by-one-day problems depending on the user's timezone.
+   */
+
+  function parseLocalDate(dateString) {
+
+    if (!dateString) {
+      return null;
+    }
+
+    const parts = dateString.split("-");
+
+    if (parts.length !== 3) {
+      return null;
+    }
+
+    const year = Number(parts[0]);
+    const month = Number(parts[1]);
+    const day = Number(parts[2]);
+
+    if (
+      !Number.isInteger(year) ||
+      !Number.isInteger(month) ||
+      !Number.isInteger(day)
+    ) {
+      return null;
+    }
+
+    return new Date(
+      year,
+      month - 1,
+      day
+    );
+  }
+
+
+  /*
+   * Formats the expiry date into something readable.
+   */
+
+  function formatExpiryDate(date) {
+
+    return date.toLocaleDateString(
+      "en-IN",
+      {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+  }
+
+
+  /*
+   * Removes the time component from today's date.
+   */
+
+  function getToday() {
+
+    const today = new Date();
+
+    return new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+
+  }
+
+
+  /*
+   * Calculates the number of days between two dates.
+   */
+
+  function daysBetween(date1, date2) {
+
+    const millisecondsPerDay =
+      1000 * 60 * 60 * 24;
+
+    return Math.round(
+      (date1.getTime() - date2.getTime()) /
+      millisecondsPerDay
+    );
+
+  }
+
+
+  /*
+   * Shows the expiry popup.
+   */
+
+  function showExpiryPopup(
+    status,
+    message,
+    expiryDate
+  ) {
+
+    const overlay =
+      document.getElementById("expiryOverlay");
+
+    const popup =
+      document.getElementById("expiryPopup");
+
+    const icon =
+      document.getElementById("expiryIcon");
+
+    const title =
+      document.getElementById("expiryTitle");
+
+    const messageElement =
+      document.getElementById("expiryMessage");
+
+    const dateElement =
+      document.getElementById("expiryDateText");
+
+    const adviceElement =
+      document.getElementById("expiryAdvice");
+
+
+    /*
+     * Set popup status styling.
+     */
+
+    popup.className =
+      "expiry-popup " + status;
+
+
+    /*
+     * Set icon and heading.
+     */
+
+    if (status === "warning") {
+
+      icon.textContent = "⚠️";
+
+      title.textContent =
+        "Quotation Expiry Warning";
+
+      adviceElement.textContent =
+        "Please review the quotation and revise it if necessary.";
+
+    }
+
+    else if (status === "today") {
+
+      icon.textContent = "🔴";
+
+      title.textContent =
+        "Quotation Expires Today";
+
+      adviceElement.textContent =
+        "Please review or revise this quotation before sending it.";
+
+    }
+
+    else {
+
+      icon.textContent = "⛔";
+
+      title.textContent =
+        "Quotation Expired";
+
+      adviceElement.textContent =
+        "Please revise the quotation before sending it to the customer.";
+
+    }
+
+
+    /*
+     * Set message.
+     */
+
+    messageElement.textContent =
+      message;
+
+
+    /*
+     * Set formatted expiry date.
+     */
+
+    if (expiryDate) {
+
+      dateElement.textContent =
+        "Valid until: " +
+        formatExpiryDate(expiryDate);
+
+    }
+
+    else {
+
+      dateElement.textContent = "";
+
+    }
+
+
+    /*
+     * Display popup.
+     */
+
+    overlay.style.display =
+      "flex";
+
+  }
+
+
+  /*
+   * Closes popup.
+   */
+
+  function closeExpiryPopup() {
+
+    const overlay =
+      document.getElementById("expiryOverlay");
+
+    overlay.style.display =
+      "none";
+
+  }
+
+
+  /*
+   * Main expiry-checking function.
+   */
+
+  function checkQuotationExpiry() {
+
+    const meta =
+      document.getElementById("quotationMeta");
+
+    if (!meta) {
+      return;
+    }
+
+
+    const expiryValue =
+      meta.dataset.expiry;
+
+
+    /*
+     * No expiry date = nothing to warn about.
+     */
+
+    if (!expiryValue) {
+      return;
+    }
+
+
+    const expiryDate =
+      parseLocalDate(expiryValue);
+
+    if (!expiryDate) {
+      return;
+    }
+
+
+    const today =
+      getToday();
+
+
+    const daysRemaining =
+      daysBetween(
+        expiryDate,
+        today
+      );
+
+
+    /*
+     * 2 DAYS BEFORE EXPIRY
+     */
+
+    if (daysRemaining === 2) {
+
+      showExpiryPopup(
+        "warning",
+        "This quotation will expire in 2 days.",
+        expiryDate
+      );
+
+      return;
+    }
+
+
+    /*
+     * 1 DAY BEFORE EXPIRY
+     */
+
+    if (daysRemaining === 1) {
+
+      showExpiryPopup(
+        "warning",
+        "This quotation will expire in 1 day.",
+        expiryDate
+      );
+
+      return;
+    }
+
+
+    /*
+     * EXPIRING TODAY
+     */
+
+    if (daysRemaining === 0) {
+
+      showExpiryPopup(
+        "today",
+        "This quotation expires today.",
+        expiryDate
+      );
+
+      return;
+    }
+
+
+    /*
+     * ALREADY EXPIRED
+     */
+
+    if (daysRemaining < 0) {
+
+      const daysExpired =
+        Math.abs(daysRemaining);
+
+
+      if (daysExpired === 1) {
+
+        showExpiryPopup(
+          "expired",
+          "This quotation expired 1 day ago.",
+          expiryDate
+        );
+
+      }
+
+      else {
+
+        showExpiryPopup(
+          "expired",
+          "This quotation expired " +
+          daysExpired +
+          " days ago.",
+          expiryDate
+        );
+
+      }
+
+    }
+
+  }
+
+
+  /*
+   * Run the check after the page loads.
+   */
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    checkQuotationExpiry
+  );
+
+</script>
+
+</body>
+</html>

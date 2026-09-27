@@ -1,0 +1,36 @@
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Local databases and private records
+*.db
+*.sqlite
+*.sqlite3
+
+# Uploaded customer files and generated output
+uploads/*
+!uploads/.gitkeep
+static/logos/*
+!static/logos/.gitkeep
+*.pdf
+*.docx
+*.rar
+
+# Client-specific and identifying assets
+**/*PRIVATE*
+**/*delvegsco*
+**/*credential*
+**/*samsung*
+**/*mahashian*
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/

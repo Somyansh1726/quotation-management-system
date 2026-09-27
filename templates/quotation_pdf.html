@@ -1,0 +1,441 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .banner-logo {
+        width: 100px;
+        height: 35px;
+      }
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        color: #1f2937;
+        font-size: 11px;
+        margin: 0;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      .section {
+        margin-top: 14px;
+      }
+
+      .banner-table td {
+        padding: 8px 20px;
+      }
+      .banner-logo-box {
+        background-color: transparent;
+        padding: 4px 10px 4px 0;
+      }
+      .banner-logo-text {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 20px;
+      }
+      .banner-title {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .banner-sub {
+        color: #ffffff;
+        font-size: 11px;
+      }
+      .banner-company-name {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .company-info-wrap {
+        margin-top: 16px;
+      }
+      .company-name {
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+      }
+      .company-line {
+        font-size: 10.5px;
+        color: #4b5563;
+        margin: 2px 0;
+      }
+      .gstin-line {
+        font-size: 10.5px;
+        font-weight: bold;
+        color: #1f2937;
+      }
+
+      .meta-table td {
+        background-color: #f5f5f5;
+        padding: 8px 14px;
+        font-size: 10px;
+      }
+      .meta-label {
+        color: #6b7280;
+        font-weight: bold;
+      }
+      .meta-value {
+        color: #1f2937;
+        font-weight: bold;
+      }
+
+      .info-heading {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #14213d;
+        font-weight: bold;
+        border-bottom: 1px solid #14213d;
+        padding-bottom: 3px;
+      }
+      .info-name {
+        font-weight: bold;
+        font-size: 12px;
+        color: #111827;
+      }
+      .info-line {
+        font-size: 11px;
+        color: #374151;
+        margin: 2px 0;
+      }
+      .info-subheading {
+        font-size: 10px;
+        font-weight: bold;
+        color: #6b7280;
+        text-transform: uppercase;
+        margin-top: 10px;
+      }
+
+      .items-table th {
+        background-color: #14213d;
+        color: #ffffff;
+        font-size: 9px;
+        text-transform: uppercase;
+        padding: 8px;
+        text-align: left;
+      }
+      .items-table td {
+        padding: 9px 8px;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 10.5px;
+      }
+      .col-num {
+        text-align: center;
+        width: 26px;
+      }
+      .col-amount {
+        text-align: right;
+        white-space: nowrap;
+      }
+      .item-name {
+        font-weight: bold;
+        color: #111827;
+      }
+      .item-specs {
+        color: #6b7280;
+        font-size: 9.5px;
+      }
+      .item-sku {
+        color: #2563eb;
+        font-size: 9px;
+      }
+
+      .amount-words {
+        font-size: 10.5px;
+        color: #4b5563;
+        font-style: italic;
+      }
+
+      .totals-table td {
+        padding: 7px 8px;
+        font-size: 10px;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+      }
+      .totals-grand td {
+        background-color: #14213d;
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 11px;
+        padding: 9px 8px;
+        border-bottom: none;
+        white-space: nowrap;
+      }
+
+      .terms-heading {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #14213d;
+        font-weight: bold;
+        border-bottom: 1px solid #14213d;
+        padding-bottom: 3px;
+      }
+      .terms-item {
+        font-size: 10.5px;
+        color: #374151;
+        margin: 3px 0;
+      }
+      .warranty-line {
+        font-size: 10.5px;
+        color: #1f2937;
+        margin: 4px 0 6px;
+      }
+
+      .payment-box td {
+        background-color: #f5f5f5;
+        padding: 12px 16px;
+        font-size: 10.5px;
+        color: #374151;
+      }
+      .payment-heading {
+        font-size: 10px;
+        text-transform: uppercase;
+        color: #14213d;
+        font-weight: bold;
+      }
+
+      .footer-text {
+        font-size: 9px;
+        color: #9ca3af;
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navy banner -->
+    <table class="banner-table" style="background-color: #14213d">
+      <tr>
+        <td style="width: 50%">
+          <table>
+            <tr>
+              <td class="banner-logo-box">
+                {% if company.logo_path %}
+                <img
+                  class="banner-logo"
+                  src="/static/{{ company.logo_path }}"
+                  width="100"
+                  height="35"
+                />
+                {% else %}
+                <span class="banner-logo-text"
+                  >{{ (company.company_name or "Company")[:2]|upper }}</span
+                >
+                {% endif %}
+              </td>
+              <td style="padding-left: 12px">
+                <span class="banner-company-name"
+                  >{{ company.company_name or "Company" }}</span
+                >
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="width: 50%; text-align: right">
+          <div class="banner-title">QUOTATION</div>
+          <div class="banner-sub">#{{ quotation.quotationNumber }}</div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Company details -->
+    <div class="section company-info-wrap" style="padding: 0 20px">
+      <p class="company-name">{{ company.company_name or "-" }}</p>
+      <p class="company-line">{{ company.branch_address or "" }}</p>
+      <p class="company-line">
+        {{ company.mobile_number or "" }} &#8226; {{ company.email or "" }}
+      </p>
+      <p class="gstin-line">GSTIN: {{ company.gst_number or "-" }}</p>
+    </div>
+
+    <!-- Meta strip -->
+    <div class="section" style="padding: 0 20px">
+      <table class="meta-table">
+        <tr>
+          <td>
+            <span class="meta-label">Date:</span>
+            <span class="meta-value">{{ quotation.quotationDate or "-" }}</span>
+          </td>
+          <td>
+            <span class="meta-label">Valid Until:</span>
+            <span class="meta-value"
+              >{{ quotation.quotationExpiry or "-" }}</span
+            >
+          </td>
+          <td>
+            <span class="meta-label">Payment:</span>
+            <span class="meta-value"
+              >{{ quotation.paymentTerms or quotation.paymentMethod or "-"
+              }}</span
+            >
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Billing details + Shipping details -->
+    <div class="section" style="padding: 0 20px">
+      <table>
+        <tr>
+          <td style="width: 50%; vertical-align: top; padding-right: 14px">
+            <div class="info-heading">Billing Details</div>
+            <p class="info-name">{{ quotation.companyName or "-" }}</p>
+            <p class="info-line">{{ quotation.billingAddress or "-" }}</p>
+            <p class="info-line">{{ quotation.statesCustomer or "-" }}</p>
+            <p class="info-line">GST: {{ quotation.customerGst or "-" }}</p>
+            <p class="info-line">Contact No: {{ quotation.phoneNo or "-" }}</p>
+          </td>
+          <td style="width: 50%; vertical-align: top; padding-left: 14px">
+            <div class="info-heading">Shipping Details</div>
+            <p class="info-name">{{ quotation.companyName or "-" }}</p>
+            <p class="info-line">
+              {{ quotation.shippingAddress or quotation.billingAddress or "-" }}
+            </p>
+            <p class="info-line">{{ quotation.statesCustomer or "-" }}</p>
+            <p class="info-line">Contact No: {{ quotation.phoneNo or "-" }}</p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Items -->
+    <div class="section" style="padding: 0 20px">
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th class="col-num">#</th>
+            <th>Description</th>
+            <th class="col-num">Qty</th>
+            <th class="col-amount">Unit Rate</th>
+            <th class="col-amount">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            <td class="col-num">{{ loop.index }}</td>
+            <td>
+              <div class="item-name">{{ item.itemName }}</div>
+              {% if item.specifications %}
+              <div class="item-specs">{{ item.specifications }}</div>
+              {% endif %} {% if item.modelNo %}
+              <div class="item-sku">Model: {{ item.modelNo }}</div>
+              {% endif %}
+            </td>
+            <td class="col-num">{{ item.itemQuantity }}</td>
+            <td class="col-amount" nowrap="nowrap">
+              Rs.&nbsp;{{ "{:,.2f}".format(item.unitPrice|float) }}
+            </td>
+            <td class="col-amount" nowrap="nowrap">
+              Rs.&nbsp;{{ "{:,.2f}".format(item.lineTotal|float) }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Amount in words + Totals -->
+    <div class="section" style="padding: 0 20px">
+      <table>
+        <tr>
+          <td style="width: 42%; vertical-align: top">
+            <p class="amount-words">Amount in words: {{ amount_in_words }}</p>
+          </td>
+          <td style="width: 58%; vertical-align: top">
+            <table class="totals-table" style="width: 100%">
+              <colgroup>
+                <col style="width: 60%" />
+                <col style="width: 40%" />
+              </colgroup>
+              <tr>
+                <td>Subtotal</td>
+                <td class="col-amount" nowrap="nowrap">
+                  Rs.&nbsp;{{ "{:,.2f}".format(subtotal) }}
+                </td>
+              </tr>
+              {% if tax.type == "cgst_sgst" %}
+              <tr>
+                <td>CGST ({{ tax.cgst_percent }}%)</td>
+                <td class="col-amount" nowrap="nowrap">
+                  Rs.&nbsp;{{ "{:,.2f}".format(tax.cgst_amount) }}
+                </td>
+              </tr>
+              <tr>
+                <td>SGST ({{ tax.sgst_percent }}%)</td>
+                <td class="col-amount" nowrap="nowrap">
+                  Rs.&nbsp;{{ "{:,.2f}".format(tax.sgst_amount) }}
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td>IGST ({{ tax.igst_percent }}%)</td>
+                <td class="col-amount" nowrap="nowrap">
+                  Rs.&nbsp;{{ "{:,.2f}".format(tax.igst_amount) }}
+                </td>
+              </tr>
+              {% endif %}
+              <tr class="totals-grand">
+                <td>Grand Total</td>
+                <td class="col-amount" nowrap="nowrap">
+                  Rs.&nbsp;{{ "{:,.2f}".format(grand_total) }}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Payment Information -->
+    <div class="section" style="padding: 0 20px">
+      <table class="payment-box">
+        <tr>
+          <td>
+            <div class="payment-heading">Payment Information</div>
+            <p style="margin: 4px 0 0">
+              Bank: {{ company.account_name or "-" }}
+            </p>
+            <p style="margin: 2px 0">
+              A/C: {{ company.account_number or "-" }}
+            </p>
+            {% if company.upi_id %}
+            <p style="margin: 2px 0">UPI ID: {{ company.upi_id }}</p>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Terms & Conditions (now includes Warranty) -->
+    {% if terms_list or quotation.warrantyTerm %}
+    <div class="section" style="padding: 0 20px">
+      <div class="terms-heading">Terms &amp; Conditions</div>
+      {% if quotation.warrantyTerm %}
+      <p class="warranty-line"><strong>Warranty:</strong> {{ quotation.warrantyTerm }}</p>
+      {% endif %}
+      {% if terms_list %}
+      {% for term in terms_list %}
+      <p class="terms-item">&#8226; {{ term }}</p>
+      {% endfor %}
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Attachments -->
+    {% if quotation.uploadedFiles %}
+    <div class="section" style="padding: 0 20px">
+      <div class="terms-heading">Attachments</div>
+      {% for file_name in quotation.uploadedFiles.split(", ") %}
+      <p class="terms-item">&#8226; {{ file_name }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <p class="footer-text">
+      This is a computer-generated document and does not require a physical
+      signature.
+    </p>
+  </body>
+</html>

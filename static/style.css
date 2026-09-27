@@ -1,0 +1,531 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 20px;
+  background-color: #f5f0f0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 26px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form-section {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin: 0 0 18px 0;
+  padding-bottom: 9px;
+  border-bottom: 2px solid #3e9fc2;
+}
+
+/* -----------------------------
+   FORM LAYOUT
+------------------------------ */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #333;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d0d0d0;
+  border-radius: 7px;
+  padding: 7px 10px;
+  background-color: #fafafa;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.input-wrapper:focus-within {
+  border-color: #3e9fc2;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(62, 159, 194, 0.12);
+}
+
+.form-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 14px;
+  padding: 4px 0;
+  font-family: inherit;
+  color: #222;
+}
+
+.form-input::placeholder {
+  color: #999;
+}
+
+.form-input:disabled {
+  color: #666;
+}
+
+/* -----------------------------
+   QUOTATION / CUSTOMER
+------------------------------ */
+
+.Customer-box,
+.quotation,
+.quotation-info {
+  width: 100%;
+}
+
+/* -----------------------------
+   ITEM DETAILS
+------------------------------ */
+
+.item-box {
+  background-color: #fafcfd;
+  border: 1px solid #d9e3e8;
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.item-box:hover {
+  border-color: #b8d8e3;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.06);
+}
+
+.item-row .form-row {
+  margin-bottom: 14px;
+}
+
+.item-row .form-group {
+  min-width: 0;
+}
+
+.item-row .item-line-total {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  font-weight: 600;
+  color: #1f6f3f;
+  background-color: #f3f8f5;
+}
+
+.item-row .item-qty,
+.item-row .item-price {
+  text-align: left;
+}
+
+/* -----------------------------
+   ADD / REMOVE ITEM
+------------------------------ */
+
+.add-item-button {
+  border: 1px dashed #3e9fc2;
+  border-radius: 7px;
+  padding: 9px 15px;
+  cursor: pointer;
+  color: #3e9fc2;
+  font-weight: 600;
+  background-color: #ffffff;
+  margin-top: 2px;
+  font-size: 13px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.add-item-button:hover {
+  background-color: #f1f9fc;
+  border-color: #2e8dac;
+  color: #2e8dac;
+}
+
+.remove-item-button {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 12px;
+  cursor: pointer;
+  color: #ffffff;
+  font-weight: 600;
+  background-color: #dc3545;
+  margin-top: 2px;
+  font-size: 13px;
+  transition: background-color 0.2s ease;
+}
+
+.remove-item-button:hover {
+  background-color: #c82333;
+}
+
+/* -----------------------------
+   TOTAL AMOUNT
+------------------------------ */
+
+.item-total-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.item-total-box {
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 11px 16px;
+  background-color: #f8faf9;
+  min-width: 180px;
+  text-align: right;
+}
+
+.item-total-box label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.item-total-box span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1f6f3f;
+}
+
+/* -----------------------------
+   TERMS
+------------------------------ */
+
+.Terms-and-Conditions {
+  width: 100%;
+}
+
+.terms-list-box {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 14px;
+  background: #fbfcfd;
+  width: 100%;
+}
+
+.terms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.terms-list {
+  margin: 0 0 8px 18px;
+}
+
+.terms-editor {
+  border-top: 1px dashed #ddd;
+  padding-top: 8px;
+  margin-top: 8px;
+}
+
+.terms-editor-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.term-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.term-row input[type="text"] {
+  flex: 1 1 auto;
+}
+
+.term-delete {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.terms-editor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/* -----------------------------
+   FOOTER
+------------------------------ */
+
+.form-footer {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.button {
+  display: flex;
+  gap: 10px;
+  margin-top: 0;
+}
+
+.previous-button,
+.submit-button {
+  border: none;
+  border-radius: 6px;
+  padding: 9px 16px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.previous-button {
+  background-color: #3e9fc2;
+}
+
+.submit-button {
+  background-color: #28a745;
+}
+
+.previous-button:hover,
+.submit-button:hover {
+  opacity: 0.92;
+}
+
+.previous-button:active,
+.submit-button:active,
+.add-item-button:active,
+.remove-item-button:active {
+  transform: translateY(1px);
+}
+
+/* -----------------------------
+   FILE UPLOAD
+------------------------------ */
+
+.upload-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 14px;
+  border: 2px dashed #3e9fc2;
+  border-radius: 9px;
+  width: 100%;
+  max-width: 420px;
+  background-color: #f8fbfd;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.upload-zone.dragover {
+  border-color: #28a745;
+  background-color: #eef9f0;
+}
+
+.upload-button {
+  align-self: flex-start;
+  background-color: #ffffff;
+  color: #222;
+  cursor: pointer;
+  border: 1px solid #3e9fc2;
+  border-radius: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.upload-button:hover {
+  background-color: #f1f9fc;
+}
+
+.upload-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 10px;
+  background-color: #ffffff;
+  border: 1px solid #dfe5e8;
+  border-radius: 6px;
+}
+
+.file-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.file-name-text {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-size {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  color: #888;
+}
+
+.remove-file-button {
+  flex-shrink: 0;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 8px;
+  background-color: #dc3545;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-file-button:hover {
+  background-color: #c82333;
+}
+
+/* -----------------------------
+   AGREEMENT
+------------------------------ */
+
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.checkbox {
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.terms label {
+  margin: 0;
+  line-height: 1.4;
+  font-size: 13px;
+}
+
+/* -----------------------------
+   FORM MESSAGE
+------------------------------ */
+
+.form-message {
+  min-height: 20px;
+  font-weight: 600;
+}
+
+/* -----------------------------
+   MOBILE
+------------------------------ */
+
+@media (max-width: 600px) {
+
+  body {
+    margin: 10px;
+  }
+
+  .form-container {
+    padding: 18px;
+    border-radius: 9px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .item-box {
+    padding: 14px;
+  }
+
+  .item-total-section {
+    justify-content: stretch;
+  }
+
+  .item-total-box {
+    width: 100%;
+    text-align: left;
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-zone {
+    width: 100%;
+    max-width: none;
+  }
+
+  .button {
+    width: 100%;
+  }
+
+  .previous-button,
+  .submit-button {
+    flex: 1;
+  }
+}

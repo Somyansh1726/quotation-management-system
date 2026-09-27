@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='signupstyle.css') }}">
+</head>
+
+<body>
+    <div class="Box">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="header">
+                <div class="logo-container">
+                    <div class="logo-circle" id="logoCircle">
+                        <img id="logoPreview" src="" alt="Company Logo Preview" style="display:none;">
+                    </div>
+                </div>
+                <h1 class="title">Create Account</h1>
+                <p class="sub-title">
+                    Register your company and bank details to get started
+                </p>
+                <div class="purple-line"></div>
+            </div>
+
+
+            <div class="company-section">
+
+                <div class="section-header">
+                    <div class="section-name">
+                        🏢 COMPANY INFORMATION
+                    </div>
+
+                    <div class="section-line"></div>
+                </div>
+
+                <!-- Row 1 -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Company Name</label>
+                        <div class="input-box">
+                            <span class="icon">👤</span>
+                            <input type="text" name="company_name" placeholder="Enter company name">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Company Logo</label>
+                        <label class="upload-box" for="company-logo">
+                            <div class="upload-main">
+                                <span class="upload-icon">☁</span>
+                                <span id="logoUploadText">Upload Logo</span>
+                            </div>
+                            <span class="upload-info" id="logoUploadInfo">
+                                PNG, JPG or SVG (Max. 2MB)
+                            </span>
+                        </label>
+                        <input type="file" id="company-logo" name="company_logo" class="real-file-input" accept=".png,.jpg,.jpeg,.svg">
+                    </div>
+
+                </div>
+
+                <!-- Row 2 -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Company Code</label>
+                        <div class="input-box">
+                            <span class="icon">⌨️</span>
+                            <input type="text" name="company_code" placeholder="Enter company code">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>GST Number</label>
+                        <div class="input-box">
+                            <span class="icon">🔗</span>
+                            <input type="text" name="gst_number" placeholder="Enter GST number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Branch Address</label>
+                        <div class="input-box">
+                            <span class="icon">📍</span>
+                            <input type="text" name="branch_address" placeholder="Enter branch address">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <div class="input-box">
+                            <span class="icon">✉️</span>
+                            <input type="email" name="email" placeholder="Enter email address">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Row 4 -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Mobile Number</label>
+                        <div class="input-box">
+                            <span class="icon">📱</span>
+                            <input type="tel" name="mobile_number" placeholder="Enter mobile number">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Password</label>
+                        <div class="input-box">
+                            <span class="icon">🔒</span>
+                            <input type="password" id="signupPassword" name="password" placeholder="Create a strong password">
+                            <span class="password-toggle" id="passwordToggle" role="button" tabindex="0" aria-label="Show password">
+                                <svg id="eyeIconOpen" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                                <svg id="eyeIconClosed" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                                    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a19.72 19.72 0 0 1 5.06-5.94M9.9 4.24A10.4 10.4 0 0 1 12 4c7 0 11 8 11 8a19.8 19.8 0 0 1-2.16 3.19M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BANK INFORMATION -->
+
+            <div class="bank-section">
+                <div class="section-header">
+                    <div class="section-name">
+                        🏦 BANK INFORMATION
+                    </div>
+                    <div class="section-line"></div>
+                </div>
+
+                <!-- Row 1 -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Account Name</label>
+                        <div class="input-box">
+                            <span class="icon">👤</span>
+                            <input type="text" name="account_name" placeholder="Enter account holder name">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Account Number</label>
+                        <div class="input-box">
+                            <span class="icon">💳</span>
+                            <input type="text" name="account_number" placeholder="Enter account number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>UPI ID</label>
+                        <div class="input-box">
+                            <span class="icon">₹</span>
+                            <input type="text" name="upi_id" placeholder="Enter UPI ID">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="terms-section">
+
+                <input type="checkbox" id="terms" name="terms" required>
+
+                <label for="terms">
+                    I agree to the Terms & Conditions
+                </label>
+
+            </div>
+            <button type="submit" class="create-button">
+                <span>👤+</span>
+                <span>Create Account</span>
+            </button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('static', filename='signup.js') }}"></script>
+    <script>
+        // Preview the uploaded company logo inside the circular logo container
+        const logoInput = document.getElementById('company-logo');
+        const logoPreview = document.getElementById('logoPreview');
+
+        if (logoInput && logoPreview) {
+            logoInput.addEventListener('change', function () {
+                const file = this.files && this.files[0];
+
+                if (!file) {
+                    logoPreview.src = '';
+                    logoPreview.style.display = 'none';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    logoPreview.src = e.target.result;
+                    logoPreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Show/hide the password as plain text when the eye icon is clicked
+        const passwordInput = document.getElementById('signupPassword');
+        const passwordToggle = document.getElementById('passwordToggle');
+        const eyeIconOpen = document.getElementById('eyeIconOpen');
+        const eyeIconClosed = document.getElementById('eyeIconClosed');
+
+        if (passwordInput && passwordToggle && eyeIconOpen && eyeIconClosed) {
+            const togglePasswordVisibility = () => {
+                const isHidden = passwordInput.type === 'password';
+                passwordInput.type = isHidden ? 'text' : 'password';
+                eyeIconOpen.style.display = isHidden ? 'none' : 'block';
+                eyeIconClosed.style.display = isHidden ? 'block' : 'none';
+                passwordToggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+            };
+
+            passwordToggle.addEventListener('click', togglePasswordVisibility);
+            passwordToggle.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    togglePasswordVisibility();
+                }
+            });
+        }
+
+        // Make sure the "Terms & Conditions" checkbox is compulsory,
+        // even if it gets submitted through custom JS elsewhere
+        const signupForm = document.querySelector('form');
+        const termsCheckbox = document.getElementById('terms');
+
+        if (signupForm && termsCheckbox) {
+            signupForm.addEventListener('submit', function (e) {
+                if (!termsCheckbox.checked) {
+                    e.preventDefault();
+                    termsCheckbox.focus();
+                    alert('Please agree to the Terms & Conditions before creating your account.');
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

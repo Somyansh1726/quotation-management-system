@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+  <title>
+    {% if revision_mode %}
+    Revise Quotation {{ quotation_number }}
+    {% else %}
+    New Quotation
+    {% endif %}
+  </title>
+</head>
+
+<body>
+
+  <form class="form-container" method="POST" enctype="multipart/form-data" onsubmit="return validateQuotationDates()">
+
+    <!-- =================================================
+         QUOTATION DETAILS
+    ================================================== -->
+
+    <div class="form-section quotation-info">
+
+      <h2 class="section-title">
+        Quotation Details
+      </h2>
+
+      <div class="quotation">
+
+        <!-- DATE + EXPIRY -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="quotationDate">
+              Quotation Date
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="date" id="quotationDate" name="quotationDate" class="form-input"
+                value="{{ revision_quotation.quotationDate if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="quotationExpiry">
+              Expiry Date
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="date" id="quotationExpiry" name="quotationExpiry" class="form-input"
+                value="{{ revision_quotation.quotationExpiry if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- QUOTATION NUMBER + COMPANY STATE -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="quotationNumber">
+              Quotation Number
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="quotationNumber" name="quotationNumber" class="form-input"
+                value="{{ quotation_number }}" readonly>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="states">
+              Company State
+            </label>
+
+            <div class="input-wrapper">
+
+              <select id="states" name="states" class="form-input" required>
+
+                <option value="">
+                  Select State
+                </option>
+
+                <option value="Andhra Pradesh" {% if revision_mode and revision_quotation.states=="Andhra Pradesh"
+                  %}selected{% endif %}>
+                  Andhra Pradesh
+                </option>
+
+                <option value="Arunachal Pradesh" {% if revision_mode and revision_quotation.states=="Arunachal Pradesh"
+                  %}selected{% endif %}>
+                  Arunachal Pradesh
+                </option>
+
+                <option value="Assam" {% if revision_mode and revision_quotation.states=="Assam" %}selected{% endif %}>
+                  Assam
+                </option>
+
+                <option value="Bihar" {% if revision_mode and revision_quotation.states=="Bihar" %}selected{% endif %}>
+                  Bihar
+                </option>
+
+                <option value="Chhattisgarh" {% if revision_mode and revision_quotation.states=="Chhattisgarh"
+                  %}selected{% endif %}>
+                  Chhattisgarh
+                </option>
+
+                <option value="Goa" {% if revision_mode and revision_quotation.states=="Goa" %}selected{% endif %}>
+                  Goa
+                </option>
+
+                <option value="Gujarat" {% if revision_mode and revision_quotation.states=="Gujarat" %}selected{% endif
+                  %}>
+                  Gujarat
+                </option>
+
+                <option value="Haryana" {% if revision_mode and revision_quotation.states=="Haryana" %}selected{% endif
+                  %}>
+                  Haryana
+                </option>
+
+                <option value="Himachal Pradesh" {% if revision_mode and revision_quotation.states=="Himachal Pradesh"
+                  %}selected{% endif %}>
+                  Himachal Pradesh
+                </option>
+
+                <option value="Jammu and Kashmir" {% if revision_mode and revision_quotation.states=="Jammu and Kashmir"
+                  %}selected{% endif %}>
+                  Jammu and Kashmir
+                </option>
+
+                <option value="Jharkhand" {% if revision_mode and revision_quotation.states=="Jharkhand" %}selected{%
+                  endif %}>
+                  Jharkhand
+                </option>
+
+                <option value="Karnataka" {% if revision_mode and revision_quotation.states=="Karnataka" %}selected{%
+                  endif %}>
+                  Karnataka
+                </option>
+
+                <option value="Kerala" {% if revision_mode and revision_quotation.states=="Kerala" %}selected{% endif
+                  %}>
+                  Kerala
+                </option>
+
+                <option value="Madhya Pradesh" {% if revision_mode and revision_quotation.states=="Madhya Pradesh"
+                  %}selected{% endif %}>
+                  Madhya Pradesh
+                </option>
+
+                <option value="Maharashtra" {% if revision_mode and revision_quotation.states=="Maharashtra"
+                  %}selected{% endif %}>
+                  Maharashtra
+                </option>
+
+                <option value="Manipur" {% if revision_mode and revision_quotation.states=="Manipur" %}selected{% endif
+                  %}>
+                  Manipur
+                </option>
+
+                <option value="Meghalaya" {% if revision_mode and revision_quotation.states=="Meghalaya" %}selected{%
+                  endif %}>
+                  Meghalaya
+                </option>
+
+                <option value="Mizoram" {% if revision_mode and revision_quotation.states=="Mizoram" %}selected{% endif
+                  %}>
+                  Mizoram
+                </option>
+
+                <option value="Nagaland" {% if revision_mode and revision_quotation.states=="Nagaland" %}selected{%
+                  endif %}>
+                  Nagaland
+                </option>
+
+                <option value="Orissa" {% if revision_mode and revision_quotation.states=="Orissa" %}selected{% endif
+                  %}>
+                  Orissa
+                </option>
+
+                <option value="Punjab" {% if revision_mode and revision_quotation.states=="Punjab" %}selected{% endif
+                  %}>
+                  Punjab
+                </option>
+
+                <option value="Rajasthan" {% if revision_mode and revision_quotation.states=="Rajasthan" %}selected{%
+                  endif %}>
+                  Rajasthan
+                </option>
+
+                <option value="Sikkim" {% if revision_mode and revision_quotation.states=="Sikkim" %}selected{% endif
+                  %}>
+                  Sikkim
+                </option>
+
+                <option value="Tamil Nadu" {% if revision_mode and revision_quotation.states=="Tamil Nadu" %}selected{%
+                  endif %}>
+                  Tamil Nadu
+                </option>
+
+                <option value="Telangana" {% if revision_mode and revision_quotation.states=="Telangana" %}selected{%
+                  endif %}>
+                  Telangana
+                </option>
+
+                <option value="Tripura" {% if revision_mode and revision_quotation.states=="Tripura" %}selected{% endif
+                  %}>
+                  Tripura
+                </option>
+
+                <option value="Uttar Pradesh" {% if revision_mode and revision_quotation.states=="Uttar Pradesh"
+                  %}selected{% endif %}>
+                  Uttar Pradesh
+                </option>
+
+                <option value="Uttarakhand" {% if revision_mode and revision_quotation.states=="Uttarakhand"
+                  %}selected{% endif %}>
+                  Uttarakhand
+                </option>
+
+                <option value="West Bengal" {% if revision_mode and revision_quotation.states=="West Bengal"
+                  %}selected{% endif %}>
+                  West Bengal
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PAYMENT + SALESPERSON -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="paymentMethod">
+              Payment Method
+            </label>
+
+            <div class="input-wrapper">
+
+              <select id="paymentMethod" name="paymentMethod" class="form-input">
+
+                <option value="" {% if not revision_mode or not revision_quotation.paymentMethod %}selected{% endif %}>
+                  --
+                </option>
+
+                <option value="cash" {% if revision_mode and revision_quotation.paymentMethod=="cash" %}selected{% endif
+                  %}>
+                  Cash
+                </option>
+
+                <option value="cheque" {% if revision_mode and revision_quotation.paymentMethod=="cheque" %}selected{%
+                  endif %}>
+                  Cheque
+                </option>
+
+                <option value="credit" {% if revision_mode and revision_quotation.paymentMethod=="credit" %}selected{%
+                  endif %}>
+                  Credit Card
+                </option>
+
+                <option value="debit" {% if revision_mode and revision_quotation.paymentMethod=="debit" %}selected{%
+                  endif %}>
+                  Debit Card
+                </option>
+
+                <option value="upi" {% if revision_mode and revision_quotation.paymentMethod=="upi" %}selected{% endif
+                  %}>
+                  UPI
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="salespersonName">
+              Salesperson Name
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="salespersonName" name="salespersonName" class="form-input"
+                value="{{ revision_quotation.salespersonName if revision_mode else '' }}">
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         ITEM DETAILS
+    ================================================== -->
+
+    <div class="form-section items">
+
+      <h2 class="section-title">
+        Item Details
+      </h2>
+
+      <div id="itemsContainer"></div>
+
+
+      <template id="itemRowTemplate">
+
+        <div class="item-box item-row">
+
+          <!-- ITEM NAME + MODEL -->
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Item Name
+              </label>
+
+              <div class="input-wrapper">
+
+                <input type="text" name="itemName[]" class="form-input item-name" required>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Model Number
+              </label>
+
+              <div class="input-wrapper">
+
+                <input type="text" name="modelNo[]" class="form-input">
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- SPECIFICATIONS + QUANTITY -->
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Specifications
+              </label>
+
+              <div class="input-wrapper">
+
+                <input type="text" name="specifications[]" class="form-input">
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Quantity
+              </label>
+
+              <div class="input-wrapper">
+
+                <input type="number" name="itemQuantity[]" min="1" max="999" class="form-input item-qty" required>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- UNIT PRICE + LINE TOTAL -->
+
+          <div class="form-row">
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Unit Price
+              </label>
+
+              <div class="input-wrapper">
+
+                <input type="number" name="unitPrice[]" step="1" min="0" class="form-input item-price" required>
+
+              </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+              <label class="input-label">
+                Line Total
+              </label>
+
+              <div class="input-wrapper">
+
+                <span class="form-input item-line-total">
+                  0.00
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button type="button" class="remove-item-button">
+            Remove Item
+          </button>
+
+        </div>
+
+      </template>
+
+
+      <button type="button" id="addItemButton" class="add-item-button">
+        + Add Item
+      </button>
+
+
+      <div class="item-total-section">
+
+        <div class="item-total-box">
+
+          <label>
+            Total Amount
+          </label>
+
+          <span id="totalAmount">
+            0.00
+          </span>
+
+          <input type="hidden" id="totalAmountInput" name="totalAmount" value="0.00">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         CUSTOMER DETAILS
+    ================================================== -->
+
+    <div class="form-section Customer-info">
+
+      <h2 class="section-title">
+        Customer Details
+      </h2>
+
+
+      <div class="Customer-box">
+
+        <!-- CUSTOMER NAME + BILLING -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="customerName">
+              Customer Name
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="customerName" name="customerName" class="form-input"
+                value="{{ revision_quotation.customerName if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="billingAddress">
+              Billing Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="billingAddress" name="billingAddress" class="form-input"
+                value="{{ revision_quotation.billingAddress if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SHIPPING + CUSTOMER COMPANY -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="shippingAddress">
+              Shipping Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="shippingAddress" name="shippingAddress" class="form-input"
+                value="{{ revision_quotation.shippingAddress if revision_mode else '' }}">
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="companyName">
+              Customer Company Name
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="companyName" name="companyName" class="form-input"
+                value="{{ revision_quotation.companyName if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CUSTOMER COMPANY ADDRESS + CUSTOMER STATE -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="companyAddress">
+              Customer Company Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="companyAddress" name="companyAddress" class="form-input"
+                value="{{ revision_quotation.companyAddress if revision_mode else '' }}">
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="statesCustomer">
+              Customer State
+            </label>
+
+            <div class="input-wrapper">
+
+              <select id="statesCustomer" name="statesCustomer" class="form-input" required>
+
+                <option value="" {% if not revision_mode %}selected{% endif %}>
+                  Select State
+                </option>
+
+                <option value="Andhra Pradesh" {% if revision_mode and
+                  revision_quotation.statesCustomer=="Andhra Pradesh" %}selected{% endif %}>
+                  Andhra Pradesh
+                </option>
+
+                <option value="Arunachal Pradesh" {% if revision_mode and
+                  revision_quotation.statesCustomer=="Arunachal Pradesh" %}selected{% endif %}>
+                  Arunachal Pradesh
+                </option>
+
+                <option value="Assam" {% if revision_mode and revision_quotation.statesCustomer=="Assam" %}selected{%
+                  endif %}>
+                  Assam
+                </option>
+
+                <option value="Bihar" {% if revision_mode and revision_quotation.statesCustomer=="Bihar" %}selected{%
+                  endif %}>
+                  Bihar
+                </option>
+
+                <option value="Chhattisgarh" {% if revision_mode and revision_quotation.statesCustomer=="Chhattisgarh"
+                  %}selected{% endif %}>
+                  Chhattisgarh
+                </option>
+
+                <option value="Goa" {% if revision_mode and revision_quotation.statesCustomer=="Goa" %}selected{% endif
+                  %}>
+                  Goa
+                </option>
+
+                <option value="Gujarat" {% if revision_mode and revision_quotation.statesCustomer=="Gujarat"
+                  %}selected{% endif %}>
+                  Gujarat
+                </option>
+
+                <option value="Haryana" {% if revision_mode and revision_quotation.statesCustomer=="Haryana"
+                  %}selected{% endif %}>
+                  Haryana
+                </option>
+
+                <option value="Himachal Pradesh" {% if revision_mode and
+                  revision_quotation.statesCustomer=="Himachal Pradesh" %}selected{% endif %}>
+                  Himachal Pradesh
+                </option>
+
+                <option value="Jammu and Kashmir" {% if revision_mode and
+                  revision_quotation.statesCustomer=="Jammu and Kashmir" %}selected{% endif %}>
+                  Jammu and Kashmir
+                </option>
+
+                <option value="Jharkhand" {% if revision_mode and revision_quotation.statesCustomer=="Jharkhand"
+                  %}selected{% endif %}>
+                  Jharkhand
+                </option>
+
+                <option value="Karnataka" {% if revision_mode and revision_quotation.statesCustomer=="Karnataka"
+                  %}selected{% endif %}>
+                  Karnataka
+                </option>
+
+                <option value="Kerala" {% if revision_mode and revision_quotation.statesCustomer=="Kerala" %}selected{%
+                  endif %}>
+                  Kerala
+                </option>
+
+                <option value="Madhya Pradesh" {% if revision_mode and
+                  revision_quotation.statesCustomer=="Madhya Pradesh" %}selected{% endif %}>
+                  Madhya Pradesh
+                </option>
+
+                <option value="Maharashtra" {% if revision_mode and revision_quotation.statesCustomer=="Maharashtra"
+                  %}selected{% endif %}>
+                  Maharashtra
+                </option>
+
+                <option value="Manipur" {% if revision_mode and revision_quotation.statesCustomer=="Manipur"
+                  %}selected{% endif %}>
+                  Manipur
+                </option>
+
+                <option value="Meghalaya" {% if revision_mode and revision_quotation.statesCustomer=="Meghalaya"
+                  %}selected{% endif %}>
+                  Meghalaya
+                </option>
+
+                <option value="Mizoram" {% if revision_mode and revision_quotation.statesCustomer=="Mizoram"
+                  %}selected{% endif %}>
+                  Mizoram
+                </option>
+
+                <option value="Nagaland" {% if revision_mode and revision_quotation.statesCustomer=="Nagaland"
+                  %}selected{% endif %}>
+                  Nagaland
+                </option>
+
+                <option value="Orissa" {% if revision_mode and revision_quotation.statesCustomer=="Orissa" %}selected{%
+                  endif %}>
+                  Orissa
+                </option>
+
+                <option value="Punjab" {% if revision_mode and revision_quotation.statesCustomer=="Punjab" %}selected{%
+                  endif %}>
+                  Punjab
+                </option>
+
+                <option value="Rajasthan" {% if revision_mode and revision_quotation.statesCustomer=="Rajasthan"
+                  %}selected{% endif %}>
+                  Rajasthan
+                </option>
+
+                <option value="Sikkim" {% if revision_mode and revision_quotation.statesCustomer=="Sikkim" %}selected{%
+                  endif %}>
+                  Sikkim
+                </option>
+
+                <option value="Tamil Nadu" {% if revision_mode and revision_quotation.statesCustomer=="Tamil Nadu"
+                  %}selected{% endif %}>
+                  Tamil Nadu
+                </option>
+
+                <option value="Telangana" {% if revision_mode and revision_quotation.statesCustomer=="Telangana"
+                  %}selected{% endif %}>
+                  Telangana
+                </option>
+
+                <option value="Tripura" {% if revision_mode and revision_quotation.statesCustomer=="Tripura"
+                  %}selected{% endif %}>
+                  Tripura
+                </option>
+
+                <option value="Uttar Pradesh" {% if revision_mode and revision_quotation.statesCustomer=="Uttar Pradesh"
+                  %}selected{% endif %}>
+                  Uttar Pradesh
+                </option>
+
+                <option value="Uttarakhand" {% if revision_mode and revision_quotation.statesCustomer=="Uttarakhand"
+                  %}selected{% endif %}>
+                  Uttarakhand
+                </option>
+
+                <option value="West Bengal" {% if revision_mode and revision_quotation.statesCustomer=="West Bengal"
+                  %}selected{% endif %}>
+                  West Bengal
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- CUSTOMER GST + EMAIL -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="customerGst">
+              Customer GST Number
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="customerGst" name="customerGst" class="form-input"
+                value="{{ revision_quotation.customerGst if revision_mode else '' }}">
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="email">
+              Email Address
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="email" id="email" name="email" class="form-input" placeholder="abc@gmail.com"
+                value="{{ revision_quotation.email if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="phoneNo">
+              Phone Number
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="tel" id="phoneNo" name="phoneNo" placeholder="XXXXXXXXXX" pattern="[0-9]{10}"
+                class="form-input" value="{{ revision_quotation.phoneNo if revision_mode else '' }}" required>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         TERMS AND CONDITIONS
+    ================================================== -->
+
+    <div class="form-section">
+
+      <h2 class="section-title">
+        Terms and Conditions
+      </h2>
+
+
+      <div class="Terms-and-Conditions">
+
+        <!-- PAYMENT + WARRANTY -->
+
+        <div class="form-row">
+
+          <div class="form-group">
+
+            <label class="input-label" for="payment-terms">
+              Payment Terms
+            </label>
+
+            <div class="input-wrapper">
+
+              <input type="text" id="payment-terms" name="payment-terms" class="payment-terms form-input"
+                value="{{ revision_quotation.paymentTerms if revision_mode else '' }}">
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label class="input-label" for="warranty-term">
+              Warranty Terms
+            </label>
+
+            <div class="input-wrapper">
+
+              <select id="warranty-term" name="warranty-term" class="form-input">
+
+                <option value="one year return to bench warranty" {% if not revision_mode or
+                  revision_quotation.warrantyTerm=="one year return to bench warranty" %}selected{% endif %}>
+                  one year return to bench warranty
+                </option>
+
+                <option value="two year return to bench warranty" {% if revision_mode and
+                  revision_quotation.warrantyTerm=="two year return to bench warranty" %}selected{% endif %}>
+                  two year return to bench warranty
+                </option>
+
+                <option value="three year return to bench warranty" {% if revision_mode and
+                  revision_quotation.warrantyTerm=="three year return to bench warranty" %}selected{% endif %}>
+                  three year return to bench warranty
+                </option>
+
+                <option value="four year return to bench warranty" {% if revision_mode and
+                  revision_quotation.warrantyTerm=="four year return to bench warranty" %}selected{% endif %}>
+                  four year return to bench warranty
+                </option>
+
+                <option value="five year return to bench warranty" {% if revision_mode and
+                  revision_quotation.warrantyTerm=="five year return to bench warranty" %}selected{% endif %}>
+                  five year return to bench warranty
+                </option>
+
+              </select>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- TERMS LIST -->
+
+        <div class="terms-list-box">
+
+          <div class="terms-header">
+
+            <strong>
+              Terms and Conditions
+            </strong>
+
+            <button type="button" id="editTermsBtn" class="edit-terms-button">
+              Edit
+            </button>
+
+          </div>
+
+
+          <ul id="termsList" class="terms-list" contenteditable="false">
+          </ul>
+
+
+          <div class="terms-inline-actions">
+
+            <button type="button" id="saveTermsBtn" class="submit-button" hidden>
+              Save
+            </button>
+
+            <button type="button" id="cancelTermsBtn" class="previous-button" hidden>
+              Cancel
+            </button>
+
+          </div>
+
+
+          <input type="hidden" id="termsData" name="termsData" value="" />
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <div class="form-footer">
+
+      <div class="terms">
+
+        <input type="checkbox" id="agreeTerms" name="agreeTerms" class="checkbox" required>
+
+        <label for="agreeTerms">
+
+          I agree to the Terms of Sale and authorize this payment.
+          I also acknowledge the Privacy Policy and the Return &amp;
+          Refund Policy.
+
+        </label>
+
+      </div>
+
+
+      <div class="footer-actions">
+
+        <!-- FILE UPLOAD -->
+
+        <div class="upload-zone" id="uploadZone">
+
+          <input type="file" id="fileInput" name="uploadedFiles" hidden multiple>
+
+
+          <button class="upload-button" type="button" id="uploadButton">
+            Upload Files
+          </button>
+
+
+          <p class="upload-hint">
+            Click to select files or drag and drop them here.
+          </p>
+
+
+          <div class="file-list" id="fileList">
+          </div>
+
+        </div>
+
+
+        <div id="formMessage" class="form-message" role="status" aria-live="polite">
+        </div>
+
+
+        <div class="button">
+
+          <button class="previous-button" id="previousPageButton" type="button">
+            Previous
+          </button>
+
+
+          <button class="submit-button" type="submit">
+
+            {% if revision_mode %}
+            Save Revision
+            {% else %}
+            Save Quotation
+            {% endif %}
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+
+
+  <!-- =================================================
+       EXISTING PROJECT JAVASCRIPT
+  ================================================== -->
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+  <!-- =================================================
+       REVISION PREFILL SCRIPT
+  ================================================== -->
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      {% if revision_mode %}
+
+      const revisionItems = {{ revision_items | tojson
+    }};
+    const originalTerms =
+      {{ revision_quotation.termsData | default ('[]') | tojson }};
+
+    const itemsContainer =
+      document.getElementById('itemsContainer');
+
+    const addItemButton =
+      document.getElementById('addItemButton');
+
+    const termsList =
+      document.getElementById('termsList');
+
+    const termsDataInput =
+      document.getElementById('termsData');
+
+
+    /* --------------------------------
+       LOAD OLD TERMS
+    --------------------------------- */
+
+    let parsedTerms = [];
+
+    try {
+
+      parsedTerms =
+        JSON.parse(originalTerms || '[]');
+
+      if (!Array.isArray(parsedTerms)) {
+        parsedTerms = [];
+      }
+
+    } catch (error) {
+
+      parsedTerms = [];
+
+    }
+
+
+    if (parsedTerms.length > 0) {
+
+      termsList.innerHTML = '';
+
+      parsedTerms.forEach(function (term) {
+
+        const li =
+          document.createElement('li');
+
+        li.textContent = term;
+
+        termsList.appendChild(li);
+
+      });
+
+      termsDataInput.value =
+        JSON.stringify(parsedTerms);
+
+    }
+
+
+    /* --------------------------------
+       LOAD OLD ITEMS
+    --------------------------------- */
+
+    if (
+      Array.isArray(revisionItems) &&
+      revisionItems.length > 0
+    ) {
+
+      const rows =
+        itemsContainer.querySelectorAll('.item-row');
+
+
+      if (rows.length === 0) {
+        addItemButton.click();
+      }
+
+
+      let itemRows =
+        itemsContainer.querySelectorAll('.item-row');
+
+
+      revisionItems.forEach(function (item, index) {
+
+        if (index > 0) {
+          addItemButton.click();
+        }
+
+
+        itemRows =
+          itemsContainer.querySelectorAll('.item-row');
+
+
+        const row =
+          itemRows[index];
+
+
+        if (!row) {
+          return;
+        }
+
+
+        const nameInput =
+          row.querySelector(
+            'input[name="itemName[]"]'
+          );
+
+        const modelInput =
+          row.querySelector(
+            'input[name="modelNo[]"]'
+          );
+
+        const specsInput =
+          row.querySelector(
+            'input[name="specifications[]"]'
+          );
+
+        const qtyInput =
+          row.querySelector(
+            'input[name="itemQuantity[]"]'
+          );
+
+        const priceInput =
+          row.querySelector(
+            'input[name="unitPrice[]"]'
+          );
+
+
+        if (nameInput) {
+          nameInput.value =
+            item.itemName || '';
+        }
+
+        if (modelInput) {
+          modelInput.value =
+            item.modelNo || '';
+        }
+
+        if (specsInput) {
+          specsInput.value =
+            item.specifications || '';
+        }
+
+        if (qtyInput) {
+          qtyInput.value =
+            item.itemQuantity || '';
+        }
+
+        if (priceInput) {
+          priceInput.value =
+            item.unitPrice || '';
+        }
+
+
+        if (qtyInput) {
+
+          qtyInput.dispatchEvent(
+            new Event(
+              'input',
+              { bubbles: true }
+            )
+          );
+
+        }
+
+
+        if (priceInput) {
+
+          priceInput.dispatchEvent(
+            new Event(
+              'input',
+              { bubbles: true }
+            )
+          );
+
+        }
+
+      });
+
+    }
+
+    {% endif %}
+
+
+    /* --------------------------------
+       TERMS CHECKBOX
+    --------------------------------- */
+
+    const form =
+      document.querySelector(
+        '.form-container'
+      );
+
+    const agreeTerms =
+      document.getElementById(
+        'agreeTerms'
+      );
+
+
+    if (form && agreeTerms) {
+
+      form.addEventListener(
+        'submit',
+        function (event) {
+
+          if (!agreeTerms.checked) {
+
+            event.preventDefault();
+
+            agreeTerms.focus();
+
+            alert(
+              'Please agree to the Terms of Sale before submitting the quotation.'
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+    });
+
+
+    /* --------------------------------
+       DATE VALIDATION
+    --------------------------------- */
+
+    function validateQuotationDates() {
+
+      const quotationDate =
+        document.getElementById(
+          "quotationDate"
+        );
+
+      const quotationExpiry =
+        document.getElementById(
+          "quotationExpiry"
+        );
+
+      const formMessage =
+        document.getElementById(
+          "formMessage"
+        );
+
+
+      if (
+        !quotationDate ||
+        !quotationExpiry
+      ) {
+        return true;
+      }
+
+
+      if (!quotationDate.value) {
+
+        if (formMessage) {
+
+          formMessage.textContent =
+            "Please select the quotation date.";
+
+          formMessage.style.color =
+            "#dc3545";
+
+        }
+
+        quotationDate.focus();
+
+        return false;
+      }
+
+
+      if (!quotationExpiry.value) {
+
+        if (formMessage) {
+
+          formMessage.textContent =
+            "Please select the expiry date.";
+
+          formMessage.style.color =
+            "#dc3545";
+
+        }
+
+        quotationExpiry.focus();
+
+        return false;
+      }
+
+
+      if (
+        quotationExpiry.value <
+        quotationDate.value
+      ) {
+
+        if (formMessage) {
+
+          formMessage.textContent =
+            "Expiry date cannot be before the quotation date.";
+
+          formMessage.style.color =
+            "#dc3545";
+
+        }
+
+        quotationExpiry.focus();
+
+
+        quotationExpiry.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+
+        return false;
+
+      }
+
+
+      return true;
+
+    }
+
+
+    /* --------------------------------
+       EXPIRY DATE MINIMUM
+    --------------------------------- */
+
+    const quotationDate =
+      document.getElementById(
+        "quotationDate"
+      );
+
+    const quotationExpiry =
+      document.getElementById(
+        "quotationExpiry"
+      );
+
+
+    if (
+      quotationDate &&
+      quotationExpiry
+    ) {
+
+      quotationDate.addEventListener(
+        "change",
+        function () {
+
+          quotationExpiry.min =
+            quotationDate.value;
+
+
+          if (
+            quotationExpiry.value &&
+            quotationExpiry.value <
+            quotationDate.value
+          ) {
+
+            quotationExpiry.value = "";
+
+          }
+
+        }
+      );
+
+
+      if (quotationDate.value) {
+
+        quotationExpiry.min =
+          quotationDate.value;
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
